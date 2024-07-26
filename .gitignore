@@ -38,3 +38,6 @@ next-env.d.ts
 # Project info
 project-draft.txt
 features.txt
+
+#testing
+test.tsx
