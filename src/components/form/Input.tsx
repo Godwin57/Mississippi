@@ -11,6 +11,7 @@ const Input: FC<InputTypes> = ({
     err, //This should be an object containing a boolean err: true|false and then a message
     value,
     type,
+    refHolder,
     className,
     onChange,
 }) => {
@@ -29,10 +30,13 @@ const Input: FC<InputTypes> = ({
                 <input
                     type={type}
                     value={value}
+                    ref={refHolder}
                     placeholder={placeholder}
                     className={`${className} bg-white py-4 rounded-md ${
                         withRightElement ? "pr-12" : "pr-4"
-                    } ${withLeftElement ? "pl-12" : "pl-4"} w-full`}
+                    } ${withLeftElement ? "pl-12" : "pl-4"} w-full ${
+                        err?.val ? "border border-err-color" : ""
+                    }`}
                     onChange={onChange}
                 />
                 {withLeftElement && (
@@ -47,7 +51,9 @@ const Input: FC<InputTypes> = ({
                 )}
             </div>
             {err?.val && (
-                <div className="text-red-600 text-[13px]">{err.msg}</div>
+                <div className="text-red-600 text-[13px] text-center">
+                    {err.msg}
+                </div>
             )}
         </div>
     );
