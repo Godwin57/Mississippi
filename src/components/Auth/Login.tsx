@@ -86,7 +86,7 @@ const Login = () => {
                     className="flex items-center gap-2 justify-end text-[14px]"
                     href={"/sign-up"}
                 >
-                    Don&copy;t have an account? Sign up{" "}
+                    Don&apos;t have an account? Sign up{" "}
                     <FaLongArrowAltRight className="text-err-color text-[14px]" />
                 </Link>
 
