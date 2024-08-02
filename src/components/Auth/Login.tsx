@@ -17,29 +17,60 @@ type LoginInputErrType = {
     msg: string;
 };
 
+type ErrType = {
+    email: LoginInputErrType;
+    password: LoginInputErrType;
+};
+
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const emailRef = useRef<HTMLInputElement>();
-    const [err, setErr] = useState<LoginInputErrType>();
+    const [err, setErr] = useState<ErrType>({
+        email: { val: false, msg: "" },
+        password: { val: false, msg: "" },
+    });
     const [showPassword, setShowPassword] = useState(false);
+    const [showRightElement, setShowRightElement] = useState(false);
 
     const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         console.log("Working now");
+        setShowRightElement((_) => true);
 
         if (!isValidEmail(email)) {
-            setErr({ val: true, msg: "Enter a valid email address" });
+            setErr({
+                ...err,
+                email: { val: true, msg: "Enter a valid email address" },
+            });
             return;
-        } else {
-            setErr({ val: false, msg: "" });
+        }
+        if (!password) {
+            setErr({
+                ...err,
+                password: {
+                    val: true,
+                    msg: "Password must not be less than 8 characters, and must include an uppercase letter, a special character and a number",
+                },
+            });
         }
     };
 
-    // This would be activated when the submit button is now active
     useEffect(() => {
-        setErr((_) => undefined);
+        setErr({
+            ...err,
+            email: { val: false, msg: "" },
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [email]);
+
+    useEffect(() => {
+        setErr({
+            ...err,
+            password: { val: false, msg: "" },
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [password]);
 
     return (
         <div>
@@ -49,18 +80,14 @@ const Login = () => {
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail((_) => e.target.value)}
-                    withRightElement
+                    withRightElement={showRightElement}
                     refHolder={emailRef}
-                    err={err}
+                    err={err.email}
                     rightElement={
-                        err?.hasOwnProperty("val") ? (
-                            !err?.val ? (
-                                <IoMdCheckmark className="text-success-color text-[16px]" />
-                            ) : (
-                                <HiMiniXMark className="text-err-color text-[16px]" />
-                            )
+                        !err?.email.val ? (
+                            <IoMdCheckmark className="text-success-color text-[16px]" />
                         ) : (
-                            <MdOutlineMailOutline />
+                            <HiMiniXMark className="text-err-color text-[16px]" />
                         )
                     }
                 />
@@ -69,6 +96,7 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     type={showPassword ? "text" : "password"}
+                    err={err.password}
                     withRightElement
                     rightElement={
                         showPassword ? (

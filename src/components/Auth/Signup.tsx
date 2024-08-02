@@ -71,14 +71,17 @@ const Signup = () => {
 
     useEffect(() => {
         setErr({ ...err, name: { val: false, msg: "" } });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [name]);
 
     useEffect(() => {
         setErr({ ...err, email: { val: false, msg: "" } });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [email]);
 
     useEffect(() => {
         setErr({ ...err, password: { val: false, msg: "" } });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [password]);
 
     return (
