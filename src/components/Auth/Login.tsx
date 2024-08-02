@@ -9,6 +9,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { CommonButton } from "../Button";
+import Link from "next/link";
 
 // Made the err val here a string so I can also use this same object as the err object for the password field
 type LoginInputErrType = {
@@ -81,10 +82,13 @@ const Login = () => {
                         )
                     }
                 />
-                <p className="flex items-center gap-2 justify-end text-[14px]">
-                    Forgot your password?{" "}
+                <Link
+                    className="flex items-center gap-2 justify-end text-[14px]"
+                    href={"/sign-up"}
+                >
+                    Don&copy;t have an account? Sign up{" "}
                     <FaLongArrowAltRight className="text-err-color text-[14px]" />
-                </p>
+                </Link>
 
                 <CommonButton
                     type={"button"}
