@@ -5,7 +5,6 @@ import Input from "../form/Input";
 import { isValidEmail } from "@/lib/utils";
 import { IoMdCheckmark } from "react-icons/io";
 import { HiMiniXMark } from "react-icons/hi2";
-import { MdOutlineMailOutline } from "react-icons/md";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { CommonButton } from "../Button";
@@ -58,6 +57,16 @@ const Signup = () => {
             });
             return;
         }
+
+        if (!password) {
+            setErr({
+                ...err,
+                password: {
+                    val: true,
+                    msg: "Password must not be less than 8 characters, and must include an uppercase letter, a special character and a number",
+                },
+            });
+        }
     };
 
     useEffect(() => {
@@ -67,6 +76,10 @@ const Signup = () => {
     useEffect(() => {
         setErr({ ...err, email: { val: false, msg: "" } });
     }, [email]);
+
+    useEffect(() => {
+        setErr({ ...err, password: { val: false, msg: "" } });
+    }, [password]);
 
     return (
         <div>
@@ -107,6 +120,7 @@ const Signup = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     type={showPassword ? "text" : "password"}
+                    err={err.password}
                     withRightElement
                     rightElement={
                         showPassword ? (
@@ -138,7 +152,7 @@ const Signup = () => {
             </form>
 
             <div className="flex flex-col items-center mt-40">
-                <p className="text-[14px]">Or login with social account</p>
+                <p className="text-[14px]">Or Sign up with social account</p>
                 <div>
                     <CommonButton
                         type="button"
