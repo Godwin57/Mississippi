@@ -6,7 +6,8 @@ const page = () => {
         <main>
             <h1 className="font-extrabold text-xl">Mississippi</h1>
             <p>Homepage</p>
-            <Link href={"/sign-in"}>Sign in or sign up</Link>
+            <Link href={"/sign-in"}>Sign in</Link>
+            <Link href={"/sign-up"}>Sign up</Link>
         </main>
     );
 };

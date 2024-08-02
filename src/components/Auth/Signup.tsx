@@ -9,57 +9,96 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { CommonButton } from "../Button";
+import Link from "next/link";
 
-// Made the err val here a string so I can also use this same object as the err object for the password field
-type LoginInputErrType = {
+type SignupInputErrType = {
     val: boolean;
     msg: string;
 };
 
-const Login = () => {
+type ErrType = {
+    name: SignupInputErrType;
+    email: SignupInputErrType;
+    password: SignupInputErrType;
+};
+
+const Signup = () => {
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const emailRef = useRef<HTMLInputElement>();
-    const [err, setErr] = useState<LoginInputErrType>();
+    const nameRef = useRef<HTMLInputElement>();
+    const [err, setErr] = useState<ErrType>({
+        name: { val: false, msg: "" },
+        email: { val: false, msg: "" },
+        password: { val: false, msg: "" },
+    });
     const [showPassword, setShowPassword] = useState(false);
+    const [showErrIcon, setShowErrIcon] = useState(false);
 
     const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         console.log("Working now");
 
-        if (!isValidEmail(email)) {
-            setErr({ val: true, msg: "Enter a valid email address" });
+        setShowErrIcon((_) => true);
+        if (name.length < 5 || name.length > 8) {
+            setErr({
+                ...err,
+                name: {
+                    val: true,
+                    msg: "Your name must have a 5 characters minimum and 8 maximum",
+                },
+            });
             return;
-        } else {
-            setErr({ val: false, msg: "" });
+        }
+
+        if (!isValidEmail(email)) {
+            setErr({
+                ...err,
+                email: { val: true, msg: "Enter a valid email address" },
+            });
+            return;
         }
     };
 
-    // This would be activated when the submit button is now active
     useEffect(() => {
-        setErr((_) => undefined);
+        setErr({ ...err, name: { val: false, msg: "" } });
+    }, [name]);
+
+    useEffect(() => {
+        setErr({ ...err, email: { val: false, msg: "" } });
     }, [email]);
 
     return (
         <div>
             <form className="space-y-3 flex flex-col">
                 <Input
+                    type="text"
+                    placeholder="Name"
+                    value={name}
+                    onChange={(e) => setName((_) => e.target.value)}
+                    refHolder={nameRef}
+                    withRightElement={showErrIcon}
+                    err={err?.name}
+                    rightElement={
+                        !err?.name.val ? (
+                            <IoMdCheckmark className="text-success-color text-[16px]" />
+                        ) : (
+                            <HiMiniXMark className="text-err-color text-[16px]" />
+                        )
+                    }
+                />
+                <Input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail((_) => e.target.value)}
-                    withRightElement
-                    refHolder={emailRef}
-                    err={err}
+                    withRightElement={showErrIcon}
+                    err={err?.email}
                     rightElement={
-                        err?.hasOwnProperty("val") ? (
-                            !err?.val ? (
-                                <IoMdCheckmark className="text-success-color text-[16px]" />
-                            ) : (
-                                <HiMiniXMark className="text-err-color text-[16px]" />
-                            )
+                        !err?.email.val ? (
+                            <IoMdCheckmark className="text-success-color text-[16px]" />
                         ) : (
-                            <MdOutlineMailOutline />
+                            <HiMiniXMark className="text-err-color text-[16px]" />
                         )
                     }
                 />
@@ -81,17 +120,20 @@ const Login = () => {
                         )
                     }
                 />
-                <p className="flex items-center gap-2 justify-end text-[14px]">
-                    Forgot your password?{" "}
+                <Link
+                    className="flex items-center gap-2 justify-end text-[14px]"
+                    href={"/sign-in"}
+                >
+                    Already have an account?{" "}
                     <FaLongArrowAltRight className="text-err-color text-[14px]" />
-                </p>
+                </Link>
 
                 <CommonButton
-                    type={"button"}
+                    type={"submit"}
                     onClick={handleSubmit}
-                    className={`bg-button-bg mt-4`}
+                    className={`bg-button-bg`}
                 >
-                    <span className="text-white text-[16px]">Login</span>
+                    <span className="text-white text-[16px]">Sign up</span>
                 </CommonButton>
             </form>
 
@@ -126,4 +168,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Signup;
