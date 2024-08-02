@@ -79,6 +79,7 @@ const Login = () => {
                     type="email"
                     placeholder="Email"
                     value={email}
+                    required
                     onChange={(e) => setEmail((_) => e.target.value)}
                     withRightElement={showRightElement}
                     refHolder={emailRef}
@@ -94,6 +95,7 @@ const Login = () => {
                 <Input
                     placeholder="Password"
                     value={password}
+                    required
                     onChange={(e) => setPassword(e.target.value)}
                     type={showPassword ? "text" : "password"}
                     err={err.password}

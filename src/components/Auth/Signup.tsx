@@ -94,6 +94,7 @@ const Signup = () => {
                     onChange={(e) => setName((_) => e.target.value)}
                     refHolder={nameRef}
                     withRightElement={showErrIcon}
+                    required
                     err={err?.name}
                     rightElement={
                         !err?.name.val ? (
@@ -107,6 +108,7 @@ const Signup = () => {
                     type="email"
                     placeholder="Email"
                     value={email}
+                    required
                     onChange={(e) => setEmail((_) => e.target.value)}
                     withRightElement={showErrIcon}
                     err={err?.email}
@@ -121,6 +123,7 @@ const Signup = () => {
                 <Input
                     placeholder="Password"
                     value={password}
+                    required
                     onChange={(e) => setPassword(e.target.value)}
                     type={showPassword ? "text" : "password"}
                     err={err.password}

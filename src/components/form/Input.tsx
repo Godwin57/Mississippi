@@ -14,6 +14,7 @@ const Input: FC<InputTypes> = ({
     refHolder,
     className,
     onChange,
+    required,
 }) => {
     return (
         <div>
@@ -31,6 +32,7 @@ const Input: FC<InputTypes> = ({
                     type={type}
                     value={value}
                     ref={refHolder}
+                    required
                     placeholder={placeholder}
                     className={`${className} bg-white py-4 rounded-md ${
                         withRightElement ? "pr-12" : "pr-4"

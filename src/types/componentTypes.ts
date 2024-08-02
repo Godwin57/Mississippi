@@ -5,6 +5,7 @@ export interface InputTypes {
     label?: string;
     withRightElement?: boolean;
     rightElement?: JSX.Element;
+    required?: boolean;
     withLeftElement?: boolean;
     leftElement?: JSX.Element;
     err?: {
