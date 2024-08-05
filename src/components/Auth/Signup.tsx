@@ -9,6 +9,8 @@ import { GoEye, GoEyeClosed } from "react-icons/go";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { CommonButton } from "../Button";
 import Link from "next/link";
+import fbIcon from "../../assets/fb-icon.png";
+import googleIcon from "../../assets/google-icon.png";
 
 type SignupInputErrType = {
     val: boolean;
@@ -159,25 +161,27 @@ const Signup = () => {
 
             <div className="flex flex-col items-center mt-40">
                 <p className="text-[14px]">Or Sign up with social account</p>
-                <div>
+                <div className={`flex gap-x-3`}>
                     <CommonButton
                         type="button"
+                        className={`h-[64px] w-[92px] bg-white flex justify-center items-center`}
                         onClick={(e) => console.log("clicked")}
                     >
                         <Image
                             alt="Google logo"
-                            src={""}
+                            src={googleIcon}
                             height={24}
                             width={24}
                         />
                     </CommonButton>
                     <CommonButton
                         type="button"
+                        className={`h-[64px] w-[92px] bg-white flex justify-center items-center`}
                         onClick={(e) => console.log("clicked")}
                     >
                         <Image
                             alt="Facebook logo"
-                            src={""}
+                            src={fbIcon}
                             height={24}
                             width={24}
                         />
