@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState, MouseEvent } from "react";
 import Image from "next/image";
 import Input from "../form/Input";
-import { isValidEmail } from "@/lib/utils";
+import { isValidEmail, isValidPassword } from "@/lib/utils";
 import { IoMdCheckmark } from "react-icons/io";
 import { HiMiniXMark } from "react-icons/hi2";
 import { GoEye, GoEyeClosed } from "react-icons/go";
@@ -58,12 +58,12 @@ const Signup = () => {
             return;
         }
 
-        if (!password) {
+        if (!isValidPassword(password)) {
             setErr({
                 ...err,
                 password: {
                     val: true,
-                    msg: "Password must not be less than 8 characters, and must include an uppercase letter, a special character and a number",
+                    msg: "Password must not be less than 8 characters, not greater than 12,  and must include an uppercase letter, a special character and a number",
                 },
             });
         }
