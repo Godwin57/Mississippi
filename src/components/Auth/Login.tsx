@@ -34,12 +34,10 @@ const Login = () => {
         password: { val: false, msg: "" },
     });
     const [showPassword, setShowPassword] = useState(false);
-    const [showRightElement, setShowRightElement] = useState(false);
 
     const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         console.log("Working now");
-        setShowRightElement((_) => true);
 
         if (!isValidEmail(email)) {
             setErr({
@@ -85,15 +83,11 @@ const Login = () => {
                     value={email}
                     required
                     onChange={(e) => setEmail((_) => e.target.value)}
-                    withRightElement={showRightElement}
+                    withRightElement={err.email.val}
                     refHolder={emailRef}
                     err={err.email}
                     rightElement={
-                        !err?.email.val ? (
-                            <IoMdCheckmark className="text-success-color text-[16px]" />
-                        ) : (
-                            <HiMiniXMark className="text-err-color text-[16px]" />
-                        )
+                        <HiMiniXMark className="text-err-color text-[16px]" />
                     }
                 />
                 <Input

@@ -34,13 +34,11 @@ const Signup = () => {
         password: { val: false, msg: "" },
     });
     const [showPassword, setShowPassword] = useState(false);
-    const [showErrIcon, setShowErrIcon] = useState(false);
 
     const handleSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         console.log("Working now");
 
-        setShowErrIcon((_) => true);
         if (name.length < 5 || name.length > 8) {
             setErr({
                 ...err,
@@ -95,15 +93,11 @@ const Signup = () => {
                     value={name}
                     onChange={(e) => setName((_) => e.target.value)}
                     refHolder={nameRef}
-                    withRightElement={showErrIcon}
+                    withRightElement={err.name.val}
                     required
                     err={err?.name}
                     rightElement={
-                        !err?.name.val ? (
-                            <IoMdCheckmark className="text-success-color text-[16px]" />
-                        ) : (
-                            <HiMiniXMark className="text-err-color text-[16px]" />
-                        )
+                        <HiMiniXMark className="text-err-color text-[16px]" />
                     }
                 />
                 <Input
@@ -112,14 +106,10 @@ const Signup = () => {
                     value={email}
                     required
                     onChange={(e) => setEmail((_) => e.target.value)}
-                    withRightElement={showErrIcon}
+                    withRightElement={err.email.val}
                     err={err?.email}
                     rightElement={
-                        !err?.email.val ? (
-                            <IoMdCheckmark className="text-success-color text-[16px]" />
-                        ) : (
-                            <HiMiniXMark className="text-err-color text-[16px]" />
-                        )
+                        <HiMiniXMark className="text-err-color text-[16px]" />
                     }
                 />
                 <Input
