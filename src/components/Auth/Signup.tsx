@@ -143,7 +143,7 @@ const Signup = () => {
                     }
                 />
                 <Link
-                    className="flex items-center gap-2 justify-end text-[14px]"
+                    className="flex items-center gap-2 justify-end text-[14px] text-blue-400"
                     href={"/sign-in"}
                 >
                     Already have an account?{" "}

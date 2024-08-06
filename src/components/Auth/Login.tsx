@@ -117,7 +117,7 @@ const Login = () => {
                     }
                 />
                 <Link
-                    className="flex items-center gap-2 justify-end text-[14px]"
+                    className="flex items-center gap-2 justify-end text-[14px] text-blue-400"
                     href={"/sign-up"}
                 >
                     Don&apos;t have an account? Sign up{" "}
